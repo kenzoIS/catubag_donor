@@ -22,5 +22,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "SignupDonor"
+rootProject.name = "DigitalDonor"
 include(":app")
+ 
