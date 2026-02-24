@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="maroon_text">#800000</color>
+    <color name="soft_pink_bg">#F8C8C8</color>
+    <color name="pink_tint">#66E57373</color>
+    <color name="button_red">#800000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+</resources>
