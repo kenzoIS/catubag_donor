@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Damayan Platform</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --brand-yellow: #ffc107;
+            --brand-bg: #fdfaf0;
+        }
+        body { background-color: var(--brand-bg); font-family: 'Inter', sans-serif; overflow-x: hidden; }
+        
+        .bg-yellow-brand { background-color: var(--brand-yellow); }
+        .text-yellow-brand { color: var(--brand-yellow); }
+        
+        /* Layout Transitions */
+        .page-node { display: none; min-height: 100vh; width: 100%; }
+        .page-node.active { display: flex; }
+        
+        /* Custom UI Components */
+        .glass-card { background: rgba(255, 255, 255, 0.95); border-radius: 2rem; box-shadow: 0 10px 25px rgba(0,0,0,0.1); }
+        .input-field { width: 100%; padding: 0.75rem 1.25rem; border: 1px solid #d1d5db; border-radius: 9999px; outline: none; transition: border 0.2s; }
+        .input-field:focus { border-color: var(--brand-yellow); }
+        .btn-primary { background-color: var(--brand-yellow); color: white; padding: 0.8rem; border-radius: 9999px; font-weight: 600; width: 100%; transition: opacity 0.2s; cursor: pointer; }
+        .btn-primary:hover { opacity: 0.9; }
+        
+        /* Background using your file: bgdamayan.png */
+        .bg-hero-overlay {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('images/bgdamayan.png');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        /* Logo styling for Auth Pages */
+        .logo-box { width: 80px; height: 80px; background-color: var(--brand-yellow); border-radius: 1rem; display: flex; align-items: center; justify-content: center; overflow: hidden; padding: 10px; }
+        .logo-box img { width: 100%; height: 100%; object-fit: contain; }
+
+        /* OTP Input Styling */
+        .otp-input:focus { border-color: var(--brand-yellow); background-color: #fff; }
+    </style>
+</head>
+<body>
+
+    <section id="login-page" class="page-node active items-center justify-center p-6 bg-hero-overlay">
+        <div class="glass-card p-8 w-full max-w-md text-center relative">
+            <div class="absolute -top-10 left-1/2 -translate-x-1/2 logo-box shadow-lg">
+                <img src="images/logodamayan.png" alt="Logo">
+            </div>
+            <h1 class="text-3xl font-bold mt-10">Welcome</h1>
+            <p class="text-gray-500 text-sm italic mb-6">to DAMAYAN</p>
+            
+            <h2 class="text-xl font-bold text-left mb-1 text-gray-800">Login</h2>
+            <p class="text-left text-sm mb-6 text-gray-500">Don't have an account? <a href="#" onclick="showPage('signup-1')" class="text-yellow-brand font-semibold underline">Sign Up</a></p>
+            
+            <div class="space-y-4">
+                <input type="email" placeholder="Email" class="input-field">
+                <div class="relative">
+                    <input type="password" id="login-pass" placeholder="Password" class="input-field">
+                    <button onclick="togglePass('login-pass')" class="absolute right-4 top-4 text-gray-400">
+                        <i class="fa-regular fa-eye-slash"></i>
+                    </button>
+                </div>
+                <div class="text-right">
+                    <a href="#" onclick="showPage('forgot-password')" class="text-xs text-yellow-brand font-bold">Forgot Password?</a>
+                </div>
+                <button onclick="showPage('dashboard')" class="btn-primary">Login</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="signup-1" class="page-node flex-col md:flex-row">
+        <div class="hidden md:flex md:w-1/2 bg-hero-overlay items-center justify-center p-12 text-white text-center">
+            <div class="max-w-xs">
+                <div class="bg-yellow-brand w-20 h-20 rounded-xl mx-auto mb-6 flex items-center justify-center p-2 shadow-xl">
+                    <img src="images/logodamayan.png" alt="Logo">
+                </div>
+                <h2 class="text-4xl font-bold">Join Our Team Today!</h2>
+            </div>
+        </div>
+        <div class="w-full md:w-1/2 bg-white flex flex-col justify-center p-10">
+            <h2 class="text-4xl font-bold mb-8 text-gray-800">Sign Up</h2>
+            <div class="space-y-5 max-w-md">
+                <div><label class="text-sm font-semibold ml-2 text-gray-700">First Name</label><input type="text" class="input-field mt-1"></div>
+                <div><label class="text-sm font-semibold ml-2 text-gray-700">Last Name</label><input type="text" class="input-field mt-1"></div>
+                <div><label class="text-sm font-semibold ml-2 text-gray-700">Email</label><input type="email" class="input-field mt-1"></div>
+                <div><label class="text-sm font-semibold ml-2 text-gray-700">Phone Number</label><input type="text" class="input-field mt-1"></div>
+                <button onclick="showPage('signup-2')" class="btn-primary mt-4">Continue</button>
+                <p class="text-center text-sm mt-4">Already have an account? <a href="#" onclick="showPage('login-page')" class="text-yellow-brand font-bold underline">Log In</a></p>
+            </div>
+        </div>
+    </section>
+
+    <section id="signup-2" class="page-node flex-col md:flex-row">
+        <div class="w-full md:w-1/2 bg-white flex flex-col justify-center p-10 order-2 md:order-1">
+            <h2 class="text-3xl font-bold mb-2 text-gray-800">Create Account</h2>
+            <p class="text-gray-400 mb-8">Please provide your details below</p>
+            <div class="space-y-6 max-w-md">
+                <div><label class="text-sm font-semibold ml-2 text-gray-700">ID Number*</label><input type="text" placeholder="Enter your ID number" class="input-field mt-1"></div>
+                <div>
+                    <label class="text-sm font-semibold ml-2 text-gray-700">Upload ID for Verification*</label>
+                    <div class="mt-2 border-2 border-dashed border-gray-200 rounded-2xl p-10 text-center flex flex-col items-center justify-center bg-gray-50">
+                        <div class="w-12 h-12 bg-yellow-brand rounded-full flex items-center justify-center text-white mb-4 shadow-md">
+                            <i class="fa-solid fa-upload"></i>
+                        </div>
+                        <p class="font-bold text-gray-700">Drop your ID here or click to browse</p>
+                        <p class="text-xs text-gray-400 mt-1">Supported formats: JPG, PNG, PDF (Max 10MB)</p>
+                        <button class="mt-4 bg-yellow-brand text-white px-6 py-2 rounded-full text-sm font-bold shadow-sm">Browse Files</button>
+                    </div>
+                </div>
+                <button onclick="showPage('under-review')" class="btn-primary">Sign Up</button>
+            </div>
+        </div>
+        <div class="hidden md:flex md:w-1/2 bg-hero-overlay items-center justify-center p-12 text-white text-center order-1 md:order-2">
+            <div class="max-w-xs">
+                <div class="bg-yellow-brand w-20 h-20 rounded-xl mx-auto mb-6 flex items-center justify-center p-2 shadow-xl">
+                    <img src="images/logodamayan.png" alt="Logo">
+                </div>
+                <h2 class="text-4xl font-bold mb-2">Sign Up</h2>
+                <p>Verify your identity to get started</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="under-review" class="page-node items-center justify-center p-6 bg-hero-overlay">
+        <div class="glass-card p-10 w-full max-w-md text-center">
+            <div class="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <i class="fa-solid fa-clock-rotate-left text-yellow-brand text-4xl"></i>
+            </div>
+            <h2 class="text-3xl font-bold mb-2 text-gray-800">Profile Under Review</h2>
+            <p class="text-gray-500 mb-8">Our team is currently verifying your identification. This usually takes 24-48 hours. We'll notify you once approved!</p>
+            <button onclick="showPage('login-page')" class="btn-primary">Back to Login</button>
+        </div>
+    </section>
+
+    <section id="forgot-password" class="page-node items-center justify-center p-6 bg-white">
+        <div class="w-full max-w-md">
+            <button onclick="showPage('login-page')" class="mb-8 hover:scale-110 transition-transform"><i class="fa-solid fa-chevron-left text-xl"></i></button>
+            <h2 class="text-3xl font-bold mb-2 text-center text-gray-800">Forgot Password?</h2>
+            <p class="text-gray-500 text-center mb-8">Enter your Phone Number or Email</p>
+            <input type="text" placeholder="Phone Number or Email" class="input-field mb-6 shadow-sm">
+            <button onclick="showPage('reset-method')" class="btn-primary">Continue</button>
+            <hr class="mt-12 border-gray-100">
+        </div>
+    </section>
+
+    <section id="reset-method" class="page-node items-center justify-center p-6 bg-white">
+        <div class="w-full max-w-lg text-center">
+            <button onclick="showPage('forgot-password')" class="mb-8 block text-left hover:scale-110 transition-transform"><i class="fa-solid fa-chevron-left text-xl"></i></button>
+            <h2 class="text-3xl font-bold mb-2 text-gray-800">Reset Password</h2>
+            <p class="text-gray-500 mb-10">Select which contact should we use to reset your password</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-10">
+                <div onclick="showPage('otp-screen')" class="p-6 bg-gray-100 rounded-xl flex items-center gap-4 cursor-pointer hover:bg-gray-200 transition">
+                    <i class="fa-solid fa-phone text-2xl text-yellow-brand"></i>
+                    <div class="text-left"><p class="text-xs text-gray-500">Send Code via SMS</p><p class="font-bold">*******0975</p></div>
+                </div>
+                <div onclick="showPage('otp-screen')" class="p-6 bg-gray-100 rounded-xl flex items-center gap-4 cursor-pointer hover:bg-gray-200 transition">
+                    <i class="fa-solid fa-envelope text-2xl text-yellow-brand"></i>
+                    <div class="text-left"><p class="text-xs text-gray-500">Send Code via Email</p><p class="font-bold">*******@gmail.com</p></div>
+                </div>
+            </div>
+            <hr class="border-gray-100">
+        </div>
+    </section>
+
+    <section id="otp-screen" class="page-node items-center justify-center p-6 bg-white">
+        <div class="w-full max-w-md text-center">
+            <button onclick="showPage('reset-method')" class="mb-8 block text-left hover:scale-110 transition-transform"><i class="fa-solid fa-chevron-left text-xl"></i></button>
+            <h2 class="text-3xl font-bold mb-2 text-gray-800">Reset Password</h2>
+            <p class="text-gray-500 mb-8">Input the 4-digit code sent to<br>*****@gmail.com</p>
+            <div class="flex justify-center gap-4 mb-6">
+                <input type="text" maxlength="1" onkeyup="moveFocus(this)" class="otp-input w-14 h-16 text-center text-2xl font-bold border rounded-xl bg-orange-50 focus:border-yellow-brand outline-none shadow-inner">
+                <input type="text" maxlength="1" onkeyup="moveFocus(this)" class="otp-input w-14 h-16 text-center text-2xl font-bold border rounded-xl bg-orange-50 focus:border-yellow-brand outline-none shadow-inner">
+                <input type="text" maxlength="1" onkeyup="moveFocus(this)" class="otp-input w-14 h-16 text-center text-2xl font-bold border rounded-xl bg-orange-50 focus:border-yellow-brand outline-none shadow-inner">
+                <input type="text" maxlength="1" onkeyup="moveFocus(this)" class="otp-input w-14 h-16 text-center text-2xl font-bold border rounded-xl bg-orange-50 focus:border-yellow-brand outline-none shadow-inner">
+            </div>
+            <a href="#" class="text-yellow-brand font-bold text-sm">Resend Code?</a>
+            <button onclick="showPage('reset-success')" class="btn-primary mt-10 shadow-lg">Continue</button>
+        </div>
+    </section>
+
+    <section id="reset-success" class="page-node items-center justify-center p-6 bg-hero-overlay">
+        <div class="glass-card p-10 w-full max-w-sm text-center">
+            <h2 class="text-3xl font-bold mb-6 text-gray-800">Password Reset</h2>
+            <div class="mb-6 relative inline-block">
+                <i class="fa-solid fa-lock text-7xl text-gray-800"></i>
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 bg-yellow-brand px-3 py-1 rounded-full text-[10px] font-black text-white shadow-md">SUCCESS</div>
+            </div>
+            <p class="sm text-gray-500 mb-8">Your Password has been changed!<br>Please Login again.</p>
+            <button onclick="showPage('login-page')" class="btn-primary">Back to Login</button>
+        </div>
+    </section>
+
+    <section id="dashboard" class="page-node flex-col relative overflow-hidden bg-white">
+        <nav class="bg-yellow-brand p-4 flex justify-between items-center shadow-lg z-20">
+            <div class="flex items-center gap-8">
+                <div class="w-10 h-10 bg-white rounded flex items-center justify-center p-1">
+                    <img src="images/logodamayan.png" alt="Logo">
+                </div>
+                <div class="hidden md:flex gap-10 text-[11px] font-black uppercase tracking-[0.2em]">
+                    <a href="#" class="hover:text-white transition">home</a>
+                    <a href="#" class="hover:text-white transition opacity-60">manage accounts</a>
+                    <a href="#" class="hover:text-white transition opacity-60">reports</a>
+                    <a href="#" class="hover:text-white transition opacity-60">calendar</a>
+                </div>
+            </div>
+            <div class="relative">
+                <button onclick="toggleDropdown()" class="bg-black text-white w-10 h-10 rounded-lg flex items-center justify-center hover:scale-105 transition shadow-lg">
+                    <i class="fa-solid fa-user"></i>
+                </button>
+                <div id="profile-dropdown" class="hidden absolute right-0 mt-3 w-72 bg-white rounded-2xl shadow-2xl p-6 z-50 border border-gray-100">
+                    <h3 class="font-bold text-gray-300 text-xs uppercase mb-4">Profile Information</h3>
+                    <div class="flex items-center gap-4 mb-6">
+                        <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center text-xl text-gray-400 border border-gray-200">
+                            <i class="fa-solid fa-user"></i>
+                        </div>
+                        <div>
+                            <p class="font-bold text-gray-800">Juan D. Cruz</p>
+                            <p class="text-[10px] text-gray-400">juandelacruz@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="space-y-4 text-sm font-semibold text-gray-600">
+                        <a href="#" onclick="showPage('edit-profile')" class="flex items-center gap-3 hover:text-yellow-brand"><i class="fa-solid fa-circle-user text-lg"></i> My Profile</a>
+                        <a href="#" class="flex items-center gap-3 hover:text-yellow-brand"><i class="fa-solid fa-gear text-lg"></i> Settings</a>
+                        <a href="#" class="flex items-center gap-3 hover:text-yellow-brand"><i class="fa-solid fa-bell text-lg"></i> Notifications</a>
+                        <hr class="border-gray-50">
+                        <a href="#" onclick="showPage('login-page')" class="flex items-center gap-3 text-red-500 hover:opacity-70"><i class="fa-solid fa-right-from-bracket text-lg"></i> Logout</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <div class="absolute inset-0 flex items-center justify-start pointer-events-none z-0">
+            <img src="images/logodamayan.png" alt="Watermark" class="w-[600px] md:w-[900px] opacity-[0.05] -translate-x-32 select-none grayscale">
+        </div>
+
+        <div class="flex-grow z-10 flex items-center justify-center">
+            <p class="text-gray-300 font-bold uppercase tracking-widest text-sm">Dashboard Content Area</p>
+        </div>
+    </section>
+
+    <section id="edit-profile" class="page-node flex-col bg-white">
+        <nav class="bg-yellow-brand p-4 flex justify-between items-center shadow-md">
+            <div class="flex items-center gap-4">
+                <div class="w-8 h-8 bg-white rounded flex items-center justify-center p-1">
+                    <img src="images/logodamayan.png" alt="Logo">
+                </div>
+                <span class="font-black text-sm tracking-tighter">DAMAYAN</span>
+            </div>
+            <div class="bg-black text-white w-8 h-8 rounded flex items-center justify-center"><i class="fa-solid fa-user text-xs"></i></div>
+        </nav>
+        
+        <div class="max-w-4xl mx-auto w-full p-8 flex flex-col md:flex-row gap-12 relative">
+            <div class="hidden md:flex flex-1 items-center justify-center opacity-[0.03] absolute left-0 top-1/2 -translate-y-1/2 -translate-x-20 pointer-events-none">
+                <img src="images/logodamayan.png" class="w-[500px]">
+            </div>
+
+            <div class="flex-grow z-10">
+                <div class="border-b-2 border-gray-100 mb-8 pb-2">
+                    <span class="font-bold text-lg text-gray-800">Edit Profile</span>
+                </div>
+                
+                <div class="flex flex-col items-center mb-10">
+                    <div class="w-24 h-24 bg-gray-50 rounded-full flex items-center justify-center text-4xl text-gray-300 border-2 border-yellow-brand relative">
+                        <i class="fa-solid fa-user"></i>
+                        <button class="absolute bottom-0 right-0 bg-white border border-gray-200 p-2 rounded-full shadow-sm">
+                            <i class="fa-solid fa-pencil text-yellow-brand text-[10px]"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="space-y-6 max-w-md mx-auto">
+                    <div class="relative border-b border-gray-200 pb-1 bg-orange-50/30 p-2 rounded-t-lg">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase">First Name</label>
+                        <div class="flex justify-between items-center">
+                            <input type="text" value="Juan D." class="w-full bg-transparent font-medium outline-none text-gray-700">
+                            <i class="fa-solid fa-pencil text-gray-300 text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="relative border-b border-gray-200 pb-1 bg-orange-50/30 p-2 rounded-t-lg">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase">Last Name</label>
+                        <div class="flex justify-between items-center">
+                            <input type="text" value="Cruz" class="w-full bg-transparent font-medium outline-none text-gray-700">
+                            <i class="fa-solid fa-pencil text-gray-300 text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="relative border-b border-gray-200 pb-1 bg-orange-50/30 p-2 rounded-t-lg">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase">Email</label>
+                        <div class="flex justify-between items-center">
+                            <input type="email" value="juandelacruz@gmail.com" class="w-full bg-transparent font-medium outline-none text-gray-700">
+                            <i class="fa-solid fa-pencil text-gray-300 text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="relative border-b border-gray-200 pb-1 bg-orange-50/30 p-2 rounded-t-lg">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase">Contact Number</label>
+                        <div class="flex justify-between items-center">
+                            <input type="text" value="+63 9182159241" class="w-full bg-transparent font-medium outline-none text-gray-700">
+                            <i class="fa-solid fa-pencil text-gray-300 text-xs"></i>
+                        </div>
+                    </div>
+                    <div class="relative border-b border-gray-200 pb-1 bg-orange-50/30 p-2 rounded-t-lg">
+                        <label class="text-[10px] font-bold text-gray-400 uppercase">Password</label>
+                        <div class="flex justify-between items-center">
+                            <input type="password" value="password123" class="w-full bg-transparent font-medium outline-none text-gray-700">
+                            <i class="fa-solid fa-pencil text-gray-300 text-xs"></i>
+                        </div>
+                    </div>
+
+                    <div class="flex gap-4 pt-4">
+                        <button onclick="showPage('dashboard')" class="flex-1 border border-yellow-brand text-yellow-brand font-bold py-3 rounded-xl hover:bg-yellow-50 transition">Back To Home</button>
+                        <button onclick="showPage('dashboard')" class="flex-1 btn-primary py-3 rounded-xl shadow-lg">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        function showPage(pageId) {
+            document.querySelectorAll('.page-node').forEach(page => {
+                page.classList.remove('active');
+            });
+            const target = document.getElementById(pageId);
+            if(target) target.classList.add('active');
+            
+            // Close dropdowns automatically on navigation
+            const drop = document.getElementById('profile-dropdown');
+            if(drop) drop.classList.add('hidden');
+            window.scrollTo(0,0);
+        }
+
+        function toggleDropdown() {
+            document.getElementById('profile-dropdown').classList.toggle('hidden');
+        }
+
+        function togglePass(id) {
+            const input = document.getElementById(id);
+            input.type = input.type === 'password' ? 'text' : 'password';
+        }
+
+        function moveFocus(current) {
+            if (current.value.length >= 1) {
+                const next = current.nextElementSibling;
+                if (next) next.focus();
+            }
+        }
+
+        // Close dropdown when clicking outside
+        window.onclick = function(event) {
+            if (!event.target.closest('nav') && !event.target.closest('#profile-dropdown')) {
+                const drop = document.getElementById('profile-dropdown');
+                if (drop) drop.classList.add('hidden');
+            }
+        }
+    </script>
+</body>
+</html>
